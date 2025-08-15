@@ -1,0 +1,29 @@
+# ========================
+# Traefik / DuckDNS
+# ========================
+DUCKDNS_TOKEN=your-duckdns-api-token-here
+
+# ========================
+# Gluetun (VPN) Settings
+# ========================
+# Your WireGuard private key from AirVPN (or your provider)
+PRIVATE_KEY=your-wireguard-private-key-here
+
+# Optional pre-shared key (some VPN configs won't have this)
+PRESHARED_KEY=your-wireguard-preshared-key-here
+
+# Your WireGuard address (usually given by provider)
+WR_ADDRESS=10.5.0.2/32
+
+# DNS servers to use inside the VPN tunnel
+WR_DNS=1.1.1.1,1.0.0.1
+
+# VPN exit server countries (comma-separated, exactly as provider lists them)
+SRV_COUNTIRES=Netherlands,Sweden
+
+# ========================
+# Container user/group IDs
+# ========================
+PUID=1000
+PGID=1000
+TZ=Etc/UTC

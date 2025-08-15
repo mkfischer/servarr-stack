@@ -1,0 +1,418 @@
+services:
+  traefik:
+    image: traefik:v3.5
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /srv/apps/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /srv/apps/traefik/acme.json:/acme.json
+    environment:
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`traefik.duckdns.org`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=duckdns"
+      - "traefik.http.routers.api.service=api@internal"
+    restart: unless-stopped
+
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - SUBDOMAINS=traefik,whoami1,whoami2
+      - TOKEN=${DUCKDNS_TOKEN}
+      - LOG_FILE=false
+    volumes:
+      - /srv/apps/duckdns/config:/config 
+    restart: unless-stopped
+
+  fail2ban:
+    image: lscr.io/linuxserver/fail2ban:latest
+    container_name: fail2ban
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - VERBOSITY=-vv #optional
+    volumes:
+      - /srv/apps/fail2ban/config:/config
+      - /var/log:/var/log:ro
+      - /srv/apps/jellyfin/config/log:/remotelogs/jellyfin:ro #optional
+      - /srv/apps/navidrome/navidrome.log:/remotelogs/navidrome:ro #optional
+    restart: unless-stopped
+
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=airvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${PRIVATE_KEY}
+      - WIREGUARD_PRESHARED_KEY=${PRESHARED_KEY}
+      - WIREGUARD_ADDRESSES=${WR_ADDRESS}
+      - WIREGUARD_DNS=${WR_DNS}
+      - SERVER_COUNTRIES=${SRV_COUNTIRES}
+      - TZ=Europe/Rome
+      - FIREWALL_VPN_INPUT_PORTS=8080,33844,8989,7878,8787,6767,9696,8191,8082,5299,5030,5031,33845
+      - HEALTH_SUCCESS_WAIT_DURATION=99999h
+    volumes:
+      - /srv/apps/gluetun:/gluetun
+    ports:
+      - "8080:8080"           # qBittorrent Web UI
+      - "33844:33844"         # qBittorrent incoming TCP torrent port
+      - "33844:33844/udp"     # qBittorrent incoming UDP torrent port
+      - "8989:8989"           # Sonarr
+      - "7878:7878"           # Radarr
+      - "6767:6767"           # Bazarr
+      - "9696:9696"           # Prowlarr
+      - "8191:8191"           # Flaresolverr
+      - "5299:5299"           # Lazylibrarian
+      - "8082:8082"           # Sabnzbd
+      - "5030:5030"           # slskd HTTP port
+      - "5031:5031"           # slskd HTTPS port self signed certificate
+      - "33845:33845"         # slskd incoming connections port
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.2
+    restart: unless-stopped
+
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    network_mode: service:gluetun
+    container_name: lazylibrarian
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg
+    volumes:
+      - /srv/apps/lazylibrarian/data:/config
+      - /mnt/media/downloads/:/downloads
+      - /mnt/media/library/books:/books
+      - /mnt/media/library/books/:/audiobooks
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    network_mode: service:gluetun
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/sonarr:/config
+      - /mnt/media/downloads:/downloads
+      - /mnt/media/library/tv:/tv
+      - /mnt/media/library/anime-series:/anime
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    network_mode: service:gluetun
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/radarr:/config
+      - /mnt/media/downloads:/downloads
+      - /mnt/media/library/movies:/movies
+      - /mnt/media/library/anime-movies:/anime
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    network_mode: service:gluetun
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/bazarr:/config
+      - /mnt/media/library/movies:/movies
+      - /mnt/media/library/tv:/tv
+      - /mnt/media/library/anime-series:/anime-series
+      - /mnt/media/library/anime-movies:/anime-movies
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  qbittorrent:
+    image: qbittorrentofficial/qbittorrent-nox:latest
+    network_mode: service:gluetun
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Rome
+      WEBUI_PORT: 8080
+      TORRENTING_PORT: 6881
+    volumes:
+      - /srv/apps/qbittorrent:/config
+      - /mnt/media/downloads:/downloads
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  slskd:
+    image: slskd/slskd
+    network_mode: service:gluetun
+    container_name: slskd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+      - SLSKD_REMOTE_CONFIGURATION=true
+    volumes:
+      - /srv/apps/slskd:/app
+      - /mnt/media/downloads/complete/music:/data/downloads
+      - /mnt/media/downloads/incomplete:/data/incomplete_downloads
+      - /mnt/media/library/music:/data/music
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    network_mode: service:gluetun
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/prowlarr:/config
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+    
+  sabnzbd:
+    image: ghcr.io/hotio/sabnzbd
+    network_mode: service:gluetun
+    environment:
+      WEBUI_PORTS: 8082
+      PUID: 1000
+      PGID: 1000
+      UMASK: 002
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/sabnzbd/config:/config
+      - /mnt/media/downloads:/data
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr
+    container_name: flaresolverr
+    network_mode: service:gluetun
+    environment:
+      TZ: Europe/Rome
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Europe/Rome
+    command: --interval 3600 --cleanup
+    restart: unless-stopped
+
+  tdarr:
+    image: ghcr.io/haveagitgat/tdarr:latest
+    ports:
+      - "8265:8265"  # Web UI
+      - "8266:8266"  # Node API
+    environment:
+      TZ: Europe/Rome
+      PUID: 1000
+      PGID: 1000
+      UMASK_SET: 002
+      serverIP: 0.0.0.0
+      serverPort: 8266
+      webUIPort: 8265
+      internalNode: "false"
+      auth: "true"
+      authSecretKey: 
+    volumes:
+      - /srv/apps/tdarr/server:/app/server
+      - /srv/apps/tdarr/configs:/app/configs
+      - /srv/apps/tdarr:/config
+      - /mnt/media/apps/tdarr/temp:/temp
+      - /mnt/media/library:/media
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.3
+    restart: unless-stopped
+
+  unpackerr:
+    image: ghcr.io/hotio/unpackerr
+    environment:
+      PUID: 1000
+      PGID: 1000
+      UMASK: 002
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/unpackerr:/config
+      - /mnt/media/downloads:/data
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.4
+    restart: unless-stopped
+
+  beets:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: beets
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    volumes:
+      - /srv/apps/beets/config:/config
+      - /mnt/media/library/music:/music
+      - /mnt/media/downloads/complete/music:/downloads
+    ports:
+      - 8337:8337
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.5
+    restart: unless-stopped
+
+  jellyseerr:
+    image: ghcr.io/hotio/jellyseerr
+    ports:
+      - "5055:5055"
+    environment:
+      PUID: 1000
+      PGID: 1000
+      UMASK: 002
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/jellyseerr:/config
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.6
+    restart: unless-stopped
+
+  qbitmanage:
+    image: ghcr.io/hotio/qbitmanage
+    environment:
+      PUID: 1000
+      PGID: 1000
+      UMASK: 002
+      TZ: Europe/Rome
+    volumes:
+      - /srv/apps/qbitmanage/config:/config
+      - /mnt/media/downloads:/downloads
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.7
+    restart: unless-stopped
+    depends_on:
+      - qbittorrent
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    volumes:
+      - /srv/apps/jellyfin/config:/config
+      - /srv/apps/jellyfin/cache:/cache
+      - /mnt/media/library/movies:/media/movies:ro
+      - /mnt/media/library/tv:/media/tv:ro
+      - /mnt/media/library/anime-series:/anime-series:ro
+      - /mnt/media/library/anime-movies:/anime-movies:ro
+      - /mnt/media/fonts:/usr/local/share/fonts/custom:ro
+    ports:
+      - "8096:8096"
+      - "8920:8920"
+      - "7359:7359/udp"
+      - "1900:1900/udp"
+    environment:
+      TZ: Europe/Rome
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.8
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami1.rule=Host(`whoami1.duckdns.org`)"
+      - "traefik.http.routers.whoami1.entrypoints=websecure"
+      - "traefik.http.routers.whoami1.tls.certresolver=duckdns"
+    restart: unless-stopped
+
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
+    volumes:
+      - /srv/apps/calibre-web/data:/config
+      - /mnt/media/library/books:/books
+      - /mnt/media/library/books/:/audiobooks
+    ports:
+      - 8083:8083
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.9
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami1.rule=Host(`whoami1.duckdns.org`)"
+      - "traefik.http.routers.whoami1.entrypoints=websecure"
+      - "traefik.http.routers.whoami1.tls.certresolver=duckdns"
+    restart: unless-stopped
+  
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 1000:1000
+    ports:
+      - "4533:4533"
+    environment:
+      TZ: Europe/Rome
+      ND_LOGLEVEL: info
+      ND_SCANINTERVAL: 1h
+      ND_SESSIONTIMEOUT: 24h
+    volumes:
+      - "/srv/apps/navidrome:/data"
+      - "/mnt/media/library/music:/music:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami1.rule=Host(`whoami1.duckdns.org`)"
+      - "traefik.http.routers.whoami1.entrypoints=websecure"
+      - "traefik.http.routers.whoami1.tls.certresolver=duckdns"
+    networks:
+     media_net:
+      ipv4_address: 172.20.0.10
+    restart: unless-stopped
+
+
+
+networks:
+  media_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
