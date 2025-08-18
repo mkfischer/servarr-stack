@@ -18,6 +18,7 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: America/Denver
+      HOMEPAGE_VAR_HOST: 0.0.0.0  # Allow connections from any IP
     volumes:
       - /srv/apps/homepage:/app/config
       # - /var/run/docker.sock:/var/run/docker.sock:ro # Disabled for Podman
@@ -137,7 +138,7 @@ services:
       - /srv/apps/qbittorrent:/config
       - /mnt/media/downloads:/downloads
     ports:
-      - "8085:8080" # Web UI
+      - "8080:8080" # Web UI
       - "6881:6881" # Torrent port
       - "6881:6881/udp" # Torrent port UDP
     networks:
