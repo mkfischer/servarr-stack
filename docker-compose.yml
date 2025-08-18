@@ -125,7 +125,7 @@ services:
 
   # Download Clients
   qbittorrent:
-    image: qbittorrentofficial/qbittorrent-nox:latest
+    image: docker.io/qbittorrentofficial/qbittorrent-nox:latest
     container_name: qbittorrent
     environment:
       PUID: 1000
