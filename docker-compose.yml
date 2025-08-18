@@ -15,8 +15,8 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       TZ: America/Denver
       HOMEPAGE_VAR_HOST: 0.0.0.0  # Allow connections from any IP
       HOMEPAGE_ALLOWED_HOSTS: "*"  # Allow requests from any host/port
@@ -35,8 +35,8 @@ services:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       TZ: America/Denver
     volumes:
       - /srv/apps/sonarr:/config
@@ -54,8 +54,8 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       TZ: America/Denver
     volumes:
       - /srv/apps/radarr:/config
@@ -73,8 +73,8 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       TZ: America/Denver
     volumes:
       - /srv/apps/bazarr:/config
@@ -93,8 +93,8 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       TZ: America/Denver
     volumes:
       - /srv/apps/prowlarr:/config
@@ -109,8 +109,8 @@ services:
     image: lscr.io/linuxserver/lazylibrarian:latest
     container_name: lazylibrarian
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=1001
+      - PGID=1001
       - TZ=America/Denver
       # - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg  # May not work with Podman
     volumes:
@@ -130,8 +130,8 @@ services:
     image: docker.io/qbittorrentofficial/qbittorrent-nox:latest
     container_name: qbittorrent
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       TZ: America/Denver
       WEBUI_PORT: 8080
       TORRENTING_PORT: 6881
@@ -152,8 +152,8 @@ services:
     container_name: sabnzbd
     environment:
       WEBUI_PORTS: 8082
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       UMASK: 002
       TZ: America/Denver
     volumes:
@@ -170,8 +170,8 @@ services:
     image: docker.io/slskd/slskd
     container_name: slskd
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=1001
+      - PGID=1001
       - TZ=America/Denver
       - SLSKD_REMOTE_CONFIGURATION=true
     volumes:
@@ -219,8 +219,8 @@ services:
     ports:
       - "5055:5055"
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       UMASK: 002
       TZ: America/Denver
     volumes:
@@ -239,8 +239,8 @@ services:
       - "8266:8266" # Node API
     environment:
       TZ: America/Denver
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       UMASK_SET: 002
       serverIP: 0.0.0.0
       serverPort: 8266
@@ -263,8 +263,8 @@ services:
     image: ghcr.io/hotio/unpackerr
     container_name: unpackerr
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       UMASK: 002
       TZ: America/Denver
     volumes:
@@ -281,8 +281,8 @@ services:
       dockerfile: Dockerfile
     container_name: beets
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=1001
+      - PGID=1001
       - TZ=America/Denver
     volumes:
       - /srv/apps/beets:/config
@@ -299,8 +299,8 @@ services:
     image: ghcr.io/hotio/qbitmanage
     container_name: qbitmanage
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       UMASK: 002
       TZ: America/Denver
     volumes:
