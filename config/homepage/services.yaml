@@ -4,59 +4,59 @@
 - Media Management:
     - Sonarr:
         icon: sonarr.png
-        href: http://localhost:8989
+        href: http://192.169.50.59:8989
         description: TV Show Management
         widget:
           type: sonarr
           url: http://192.168.50.59:8989
-          key: # Add your API key here
+          key: 12c3cf446b4f4cb7aa77d796b653f8c9
 
     - Radarr:
         icon: radarr.png
-        href: http://localhost:7878
+        href: http://192.169.50.59:7878
         description: Movie Management
         widget:
           type: radarr
           url: http://192.168.50.59:7878
-          key: # Add your API key here
+          key: 91c421d1238d402b8eeb9f083107205a
 
     - Bazarr:
         icon: bazarr.png
-        href: http://localhost:6767
+        href: http://192.169.50.59:6767
         description: Subtitle Management
         widget:
           type: bazarr
           url: http://192.168.50.59:6767
-          key: # Add your API key here
+          key: 07b3286400830ae2fffc82e91e733cfb
 
     - Prowlarr:
         icon: prowlarr.png
-        href: http://localhost:9696
+        href: http://192.169.50.59:9696
         description: Indexer Management
         widget:
           type: prowlarr
           url: http://192.168.50.59:9696
-          key: # Add your API key here
+          key: 35ccdc07d49347188b462d2af114cc5e
 
     - LazyLibrarian:
         icon: lazylibrarian.png
-        href: http://localhost:5299
+        href: http://192.169.50.59:5299
         description: Book & Audiobook Management
 
 - Download Clients:
     - qBittorrent:
         icon: qbittorrent.png
-        href: http://localhost:8085
+        href: http://192.169.50.59:8085
         description: BitTorrent Client
         widget:
           type: qbittorrent
           url: http://192.168.50.59:8080
           username: admin
-          password: adminadmin # Change this!
+          password: dose.caution.Blow.2 # Change this!
 
     - SABnzbd:
         icon: sabnzbd.png
-        href: http://localhost:8082
+        href: http://192.169.50.59:8082
         description: Usenet Client
         widget:
           type: sabnzbd
@@ -65,13 +65,13 @@
 
     - slskd:
         icon: slskd.png
-        href: http://localhost:5030
+        href: http://192.169.50.59:5030
         description: Soulseek Client
 
 - Media Servers:
     - Jellyfin:
         icon: jellyfin.png
-        href: http://localhost:8096
+        href: http://192.169.50.59:8096
         description: Media Server
         widget:
           type: jellyfin
@@ -82,7 +82,7 @@
 
     - Jellyseerr:
         icon: jellyseerr.png
-        href: http://localhost:5055
+        href: http://192.169.50.59:5055
         description: Media Request Management
         widget:
           type: jellyseerr
@@ -92,7 +92,7 @@
 - Media Processing:
     - Tdarr:
         icon: tdarr.png
-        href: http://localhost:8265
+        href: http://192.169.50.59:8265
         description: Media Transcoding
         widget:
           type: tdarr
@@ -100,7 +100,7 @@
 
     - Beets:
         icon: https://raw.githubusercontent.com/beetbox/beets/master/docs/_static/beets_logo_128.png
-        href: http://localhost:8337
+        href: http://192.169.50.59:8337
         description: Music Organization
 
     - Unpackerr:
