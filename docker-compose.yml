@@ -19,6 +19,7 @@ services:
       PGID: 1000
       TZ: America/Denver
       HOMEPAGE_VAR_HOST: 0.0.0.0  # Allow connections from any IP
+      HOMEPAGE_ALLOWED_HOSTS: "*"  # Allow requests from any host/port
     volumes:
       - /srv/apps/homepage:/app/config
       # - /var/run/docker.sock:/var/run/docker.sock:ro # Disabled for Podman
