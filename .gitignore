@@ -1,1 +1,5 @@
 .env
+.claude/
+CLAUDE.local.md
+CLAUDE.md
+PRIVATE_NETWORK_CHANGES.md
