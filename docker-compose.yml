@@ -20,7 +20,7 @@ services:
       TZ: America/Denver
     volumes:
       - /srv/apps/homepage:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Optional for docker integration
+      # - /var/run/docker.sock:/var/run/docker.sock:ro # Disabled for Podman
     ports:
       - "3000:3000"
     networks:
@@ -110,7 +110,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Denver
-      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg
+      # - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg  # May not work with Podman
     volumes:
       - /srv/apps/lazylibrarian:/config
       - /mnt/media/downloads/:/downloads
