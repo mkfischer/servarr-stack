@@ -166,7 +166,7 @@ services:
     restart: unless-stopped
 
   slskd:
-    image: slskd/slskd
+    image: docker.io/slskd/slskd
     container_name: slskd
     environment:
       - PUID=1000
