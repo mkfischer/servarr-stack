@@ -1,0 +1,116 @@
+# Homepage Services Configuration
+# Icons from: https://github.com/walkxcode/dashboard-icons
+
+- Media Management:
+    - Sonarr:
+        icon: sonarr.png
+        href: http://localhost:8989
+        description: TV Show Management
+        widget:
+          type: sonarr
+          url: http://172.20.0.11:8989
+          key: # Add your API key here
+
+    - Radarr:
+        icon: radarr.png
+        href: http://localhost:7878
+        description: Movie Management
+        widget:
+          type: radarr
+          url: http://172.20.0.12:7878
+          key: # Add your API key here
+
+    - Bazarr:
+        icon: bazarr.png
+        href: http://localhost:6767
+        description: Subtitle Management
+        widget:
+          type: bazarr
+          url: http://172.20.0.13:6767
+          key: # Add your API key here
+
+    - Prowlarr:
+        icon: prowlarr.png
+        href: http://localhost:9696
+        description: Indexer Management
+        widget:
+          type: prowlarr
+          url: http://172.20.0.14:9696
+          key: # Add your API key here
+
+    - LazyLibrarian:
+        icon: lazylibrarian.png
+        href: http://localhost:5299
+        description: Book & Audiobook Management
+
+- Download Clients:
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: http://localhost:8085
+        description: BitTorrent Client
+        widget:
+          type: qbittorrent
+          url: http://172.20.0.16:8080
+          username: admin
+          password: adminadmin # Change this!
+
+    - SABnzbd:
+        icon: sabnzbd.png
+        href: http://localhost:8082
+        description: Usenet Client
+        widget:
+          type: sabnzbd
+          url: http://172.20.0.17:8082
+          key: # Add your API key here
+
+    - slskd:
+        icon: slskd.png
+        href: http://localhost:5030
+        description: Soulseek Client
+
+- Media Servers:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: http://localhost:8096
+        description: Media Server
+        widget:
+          type: jellyfin
+          url: http://172.20.0.18:8096
+          key: # Add your API key here
+          enableBlocks: true
+          enableNowPlaying: true
+
+    - Jellyseerr:
+        icon: jellyseerr.png
+        href: http://localhost:5055
+        description: Media Request Management
+        widget:
+          type: jellyseerr
+          url: http://172.20.0.19:5055
+          key: # Add your API key here
+
+- Media Processing:
+    - Tdarr:
+        icon: tdarr.png
+        href: http://localhost:8265
+        description: Media Transcoding
+        widget:
+          type: tdarr
+          url: http://172.20.0.20:8265
+
+    - Beets:
+        icon: https://raw.githubusercontent.com/beetbox/beets/master/docs/_static/beets_logo_128.png
+        href: http://localhost:8337
+        description: Music Organization
+
+    - Unpackerr:
+        icon: https://raw.githubusercontent.com/Unpackerr/unpackerr/main/init/windows/Unpackerr.png
+        href: #
+        description: Automatic Extraction
+        ping: 172.20.0.21
+
+    - qBitManage:
+        icon: qbittorrent.png
+        href: #
+        description: Torrent Management
+        ping: 172.20.0.7

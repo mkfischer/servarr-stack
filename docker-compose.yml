@@ -2,15 +2,32 @@
 # Using podman-compose with NFS mounts from 192.168.50.186
 # Last updated: 2025
 #
-# NFS Mount Requirements (mount on host before starting containers):
-# - 192.168.50.186:/mnt/array1/sonarr mounted at /sonarr
-# - 192.168.50.186:/mnt/array1/radarr mounted at /radarr
-# - 192.168.50.186:/mnt/array1/qbtorrent mounted at /qbtorrent
-# - Additional NFS shares can be mounted following the same pattern
+# Prerequisites for Ubuntu:
+# 1. Mount NFS share: sudo mount -t nfs 192.168.50.186:/mnt/array1/yoho /mnt/media
+# 2. Create config directories: sudo mkdir -p /srv/apps/{sonarr,radarr,bazarr,prowlarr,lazylibrarian,qbittorrent,qbitmanage,sabnzbd,slskd,jellyfin/{config,cache},jellyseerr,tdarr/{server,configs},unpackerr,beets}
+# 3. Set permissions: sudo chown -R 1000:1000 /srv/apps
 #
 # Volume paths use /srv/apps for local config and /mnt/media for shared media storage
 
 services:
+  # Dashboard
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Denver
+    volumes:
+      - /srv/apps/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Optional for docker integration
+    ports:
+      - "3000:3000"
+    networks:
+      media_net:
+        ipv4_address: 172.20.0.2
+    restart: unless-stopped
+
   # Media Automation Services
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -95,7 +112,7 @@ services:
       - TZ=America/Denver
       - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg
     volumes:
-      - /srv/apps/lazylibrarian/data:/config
+      - /srv/apps/lazylibrarian:/config
       - /mnt/media/downloads/:/downloads
       - /mnt/media/library/books:/books
       - /mnt/media/library/books/:/audiobooks
@@ -120,7 +137,7 @@ services:
       - /srv/apps/qbittorrent:/config
       - /mnt/media/downloads:/downloads
     ports:
-      - "8080:8080" # Web UI
+      - "8085:8080" # Web UI
       - "6881:6881" # Torrent port
       - "6881:6881/udp" # Torrent port UDP
     networks:
@@ -138,7 +155,7 @@ services:
       UMASK: 002
       TZ: America/Denver
     volumes:
-      - /srv/apps/sabnzbd/config:/config
+      - /srv/apps/sabnzbd:/config
       - /mnt/media/downloads:/data
     ports:
       - "8082:8082"
@@ -266,7 +283,7 @@ services:
       - PGID=1000
       - TZ=America/Denver
     volumes:
-      - /srv/apps/beets/config:/config
+      - /srv/apps/beets:/config
       - /mnt/media/library/music:/music
       - /mnt/media/downloads/complete/music:/downloads
     ports:
@@ -285,7 +302,7 @@ services:
       UMASK: 002
       TZ: America/Denver
     volumes:
-      - /srv/apps/qbitmanage/config:/config
+      - /srv/apps/qbitmanage:/config
       - /mnt/media/downloads:/downloads
     networks:
       media_net:

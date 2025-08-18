@@ -1,0 +1,24 @@
+# Docker Compose Override for Local Development
+# This file is automatically loaded by docker-compose/podman-compose
+# Use this for local testing before deploying to Ubuntu
+
+services:
+  homepage:
+    volumes:
+      - ./config/homepage:/app/config
+      # Comment out docker socket for podman
+      #- /var/run/docker.sock:/var/run/docker.sock:ro
+
+  # Override paths for local development if needed
+  # Uncomment and modify as necessary:
+  
+  # sonarr:
+  #   volumes:
+  #     - ./config/sonarr:/config
+  #     - ./media/downloads:/downloads
+  #     - ./media/library/tv:/tv
+  
+  # qbittorrent:
+  #   volumes:
+  #     - ./config/qbittorrent:/config
+  #     - ./media/downloads:/downloads

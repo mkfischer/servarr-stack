@@ -1,0 +1,41 @@
+# Homepage Settings Configuration
+
+title: Media Server Dashboard
+favicon: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/jellyfin.png
+
+theme: dark
+color: slate
+
+background:
+  image: https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1920&q=80
+  blur: sm
+  saturate: 100
+  brightness: 50
+  opacity: 100
+
+layout:
+  Media Management:
+    style: row
+    columns: 4
+  Download Clients:
+    style: row
+    columns: 3
+  Media Servers:
+    style: row
+    columns: 2
+  Media Processing:
+    style: row
+    columns: 4
+
+providers:
+  openweathermap: openweathermap
+  weatherapi: weatherapi
+
+hideErrors: false
+disableCollapse: false
+
+# Quick launch search providers
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: false
+  hideVisitURL: false

@@ -1,0 +1,40 @@
+# Homepage Widgets Configuration
+
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+    cputemp: false
+    uptime: true
+    units: metric
+    refresh: 3000
+
+- datetime:
+    text_size: xl
+    format:
+      dateStyle: long
+      timeStyle: short
+      hour12: true
+
+- search:
+    provider: duckduckgo
+    focus: false
+    target: _blank
+
+- openmeteo:
+    label: Weather
+    latitude: 39.7392  # Denver coordinates - update with your location
+    longitude: -104.9903
+    units: metric
+    cache: 5
+
+# System stats widget (requires docker socket mount)
+- docker:
+    type: docker
+    
+# Disk usage widgets for media directories    
+- disk:
+    - label: Media Storage
+      path: /mnt/media
+    - label: Config Storage  
+      path: /srv/apps

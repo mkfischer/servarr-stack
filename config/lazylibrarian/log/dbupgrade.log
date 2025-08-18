@@ -1,0 +1,25 @@
+Mon Aug 18 13:14:16 2025 v60: Creating new database, version 88
+Mon Aug 18 13:14:16 2025 v65: Adding Reading,Abandoned columns to users table
+Mon Aug 18 13:14:16 2025 v66: Creating subscribers table
+Mon Aug 18 13:14:16 2025 v67: Adding Prefs to users table
+Mon Aug 18 13:14:16 2025 v68: Adding Completed to wanted table
+Mon Aug 18 13:14:16 2025 v72: Adding HaveEBooks and HaveAudioBooks to authors table
+Mon Aug 18 13:14:16 2025 v73: Adding gr_id to series table
+Mon Aug 18 13:14:16 2025 v74: Adding Theme to users table
+Mon Aug 18 13:14:16 2025 v75: Adding ol_id to authors table
+Mon Aug 18 13:14:16 2025 v76: Adding Label to wanted table
+Mon Aug 18 13:14:16 2025 v77: Adding Genre to magazine/comic tables
+Mon Aug 18 13:14:16 2025 v79: Adding Source to series table
+Mon Aug 18 13:14:16 2025 v80: Creating unauthorised table
+Mon Aug 18 13:14:16 2025 v81: Adding ol_id and gb_id to books table
+Mon Aug 18 13:14:16 2025 v82: Adding reading tables
+Mon Aug 18 13:14:16 2025 v83: Adding hc_id to author, books and users tables
+Mon Aug 18 13:14:16 2025 v84: Updating reading tables
+Mon Aug 18 13:14:16 2025 v85: Updating series,member,seriesauthors tables
+Mon Aug 18 13:14:16 2025 v86: Adding language to magazines tables
+Mon Aug 18 13:14:16 2025 v87: Adding hc_token column to users table
+Mon Aug 18 13:14:16 2025 v88: Adding bookauthors table
+Mon Aug 18 13:14:16 2025 v88: updating bookauthors from 0 book entries
+Mon Aug 18 13:14:16 2025 Changed: 23
+Mon Aug 18 13:14:16 2025: Cleaning Database
+Mon Aug 18 13:14:16 2025: Database updated to version 88

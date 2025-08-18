@@ -1,0 +1,34 @@
+# Homepage Bookmarks Configuration
+
+- Developer:
+    - GitHub:
+        - icon: github.png
+          href: https://github.com
+          description: Code repository
+
+    - Docker Hub:
+        - icon: docker.png
+          href: https://hub.docker.com
+          description: Container registry
+
+- Documentation:
+    - Wiki:
+        - icon: wikijs.png
+          href: https://wiki.servarr.com
+          description: Servarr Wiki
+
+    - LinuxServer:
+        - icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver-ls-logo.png
+          href: https://docs.linuxserver.io
+          description: LinuxServer.io Docs
+
+- Management:
+    - Router:
+        - icon: router.png
+          href: http://192.168.1.1
+          description: Network router
+
+    - NAS:
+        - icon: nas.png
+          href: http://192.168.50.186
+          description: Network storage

@@ -1,0 +1,74 @@
+2025-08-18 13:13:44,250::INFO::[SABnzbd:1136] --------------------------------
+2025-08-18 13:13:44,250::INFO::[SABnzbd:1137] SABnzbd.py-4.5.2
+2025-08-18 13:13:44,250::INFO::[SABnzbd:1138] Full executable path = /app/SABnzbd.py
+2025-08-18 13:13:44,250::INFO::[SABnzbd:1139] Arguments = "/app/SABnzbd.py" "--browser" "0" "--server" "[::]:8082" "--config-file" "/config/sabnzbd.ini"
+2025-08-18 13:13:44,251::INFO::[SABnzbd:1148] Certifi version = 2025.06.15
+2025-08-18 13:13:44,251::INFO::[SABnzbd:1149] Loaded additional certificates from /usr/lib/python3.12/site-packages/certifi/cacert.pem
+2025-08-18 13:13:44,251::INFO::[SABnzbd:1155] Using INI file /config/sabnzbd.ini
+2025-08-18 13:13:44,252::INFO::[filesystem:726] Creating directories: /config/Downloads/incomplete
+2025-08-18 13:13:44,252::INFO::[filesystem:726] Creating directories: /config/Downloads/complete
+2025-08-18 13:13:44,253::INFO::[cfg:784] Config conversion set 1
+2025-08-18 13:13:44,253::INFO::[cfg:820] Config conversion set 2
+2025-08-18 13:13:44,253::INFO::[cfg:825] Config conversion set 3
+2025-08-18 13:13:44,253::INFO::[cfg:836] Config conversion set 4
+2025-08-18 13:13:44,254::INFO::[config:999] Writing settings to INI file /config/sabnzbd.ini
+2025-08-18 13:13:44,255::INFO::[filesystem:1139] [N/A] /config/admin/totals10.sab missing
+2025-08-18 13:13:44,260::INFO::[postproc:140] Loading postproc queue
+2025-08-18 13:13:44,260::INFO::[filesystem:1139] [N/A] /config/admin/postproc2.sab missing
+2025-08-18 13:13:44,260::INFO::[filesystem:1139] [N/A] /config/admin/watched_data2.sab missing
+2025-08-18 13:13:44,260::INFO::[filesystem:1139] [N/A] /config/admin/rss_data.sab missing
+2025-08-18 13:13:44,261::INFO::[scheduler:190] Scheduling RSS interval task every 60 min (delay=29)
+2025-08-18 13:13:44,261::INFO::[scheduler:200] Scheduling version check in 10 minutes and daily at 19:46
+2025-08-18 13:13:44,261::INFO::[scheduler:215] Setting schedule for midnight auto history-purge
+2025-08-18 13:13:44,261::INFO::[scheduler:224] Setting schedule for midnight BPS reset
+2025-08-18 13:13:44,261::INFO::[scheduler:233] Setting schedule for midnight server expiration check
+2025-08-18 13:13:44,261::INFO::[scheduler:242] Setting schedule for server quota check
+2025-08-18 13:13:44,261::INFO::[filesystem:1139] [N/A] /config/admin/queue10.sab missing
+2025-08-18 13:13:44,261::INFO::[__init__:306] All processes started
+2025-08-18 13:13:44,261::INFO::[SABnzbd:337] Template location for Glitter is /app/interfaces/Glitter
+2025-08-18 13:13:44,261::INFO::[SABnzbd:337] Template location for Config is /app/interfaces/Config
+2025-08-18 13:13:44,262::INFO::[misc:1325] [N/A] Running external command: ['/usr/bin/unrar']
+2025-08-18 13:13:44,265::INFO::[misc:1325] [N/A] Running external command: ['/usr/bin/7zz']
+2025-08-18 13:13:44,273::INFO::[misc:1325] [N/A] Running external command: ['/usr/local/bin/par2', '-V']
+2025-08-18 13:13:44,274::INFO::[SABnzbd:422] SABCTools module (v8.2.5)... found!
+2025-08-18 13:13:44,274::INFO::[SABnzbd:423] SABCTools module is using SIMD set: NEON
+2025-08-18 13:13:44,274::INFO::[SABnzbd:424] SABCTools module is linked to OpenSSL: True
+2025-08-18 13:13:44,274::INFO::[SABnzbd:444] Cryptography module (v45.0.4)... found!
+2025-08-18 13:13:44,274::INFO::[SABnzbd:447] par2 binary... found (/usr/local/bin/par2)
+2025-08-18 13:13:44,274::INFO::[SABnzbd:454] UNRAR binary... found (/usr/bin/unrar)
+2025-08-18 13:13:44,274::INFO::[SABnzbd:462] UNRAR binary version 7.13
+2025-08-18 13:13:44,274::INFO::[SABnzbd:469] 7za binary... found (/usr/bin/7zz)
+2025-08-18 13:13:44,274::INFO::[SABnzbd:471] 7za binary version 24.09
+2025-08-18 13:13:44,275::INFO::[SABnzbd:477] nice binary... found (/bin/nice)
+2025-08-18 13:13:44,275::INFO::[SABnzbd:481] ionice binary... found (/bin/ionice)
+2025-08-18 13:13:44,275::INFO::[SABnzbd:1352] Starting web-interface on :::8082
+2025-08-18 13:13:44,275::INFO::[_cplogging:213] [18/Aug/2025:13:13:44] ENGINE Bus STARTING
+2025-08-18 13:13:44,377::INFO::[_cplogging:213] [18/Aug/2025:13:13:44] ENGINE Serving on http://:::8082
+2025-08-18 13:13:44,377::INFO::[_cplogging:213] [18/Aug/2025:13:13:44] ENGINE Bus STARTED
+2025-08-18 13:13:44,377::INFO::[SABnzbd:1391] Starting SABnzbd.py-4.5.2
+2025-08-18 13:13:44,378::INFO::[dirscanner:112] Dirscanner starting up
+2025-08-18 13:13:44,378::INFO::[notifier:163] Sending notification: SABnzbd - SABnzbd 4.5.2 started (type=startup, job_cat=None)
+2025-08-18 13:13:44,378::INFO::[__init__:460] Commit = 6864810acebbc6b23d5827ed796c89fc1e84e18e
+2025-08-18 13:13:44,378::INFO::[__init__:461] Python-version = 3.12.11 (main, Jun  4 2025, 09:55:47) [GCC 14.2.0]
+2025-08-18 13:13:44,379::INFO::[__init__:462] CPU architecture = aarch64
+2025-08-18 13:13:44,379::INFO::[__init__:463] Platform = Flatpak
+2025-08-18 13:13:44,379::INFO::[__init__:464] JSON-module = orjson 3.10.18
+2025-08-18 13:13:44,379::INFO::[__init__:465] Preferred encoding = UTF-8
+2025-08-18 13:13:44,379::INFO::[__init__:466] SSL version = OpenSSL 3.5.1 1 Jul 2025
+2025-08-18 13:27:49,207::INFO::[notifier:163] Sending notification: Warning - Signal 15 caught, saving and exiting... (type=warning, job_cat=None)
+2025-08-18 13:27:49,207::WARNING::[__init__:202] Signal 15 caught, saving and exiting...
+2025-08-18 13:27:49,207::INFO::[__init__:419] [N/A] Performing SABnzbd shutdown
+2025-08-18 13:27:49,207::INFO::[__init__:336] SABnzbd shutting down...
+2025-08-18 13:27:49,208::INFO::[directunpacker:564] Aborting all DirectUnpackers
+2025-08-18 13:27:49,208::INFO::[notifier:163] Sending notification: SABnzbd - Shutting down (type=startup, job_cat=None)
+2025-08-18 13:27:49,209::INFO::[downloader:643] Shutting down
+2025-08-18 13:27:49,209::INFO::[nzbqueue:230] Saving queue
+2025-08-18 13:27:49,212::INFO::[postproc:135] Saving postproc queue
+2025-08-18 13:27:49,213::INFO::[__init__:405] All processes stopped
+2025-08-18 13:27:49,214::INFO::[_cplogging:213] [18/Aug/2025:13:27:49] ENGINE Bus STOPPING
+2025-08-18 13:27:49,337::INFO::[_cplogging:213] [18/Aug/2025:13:27:49] ENGINE HTTP Server cherrypy._cpwsgi_server.CPWSGIServer(('::', 8082)) shut down
+2025-08-18 13:27:49,338::INFO::[_cplogging:213] [18/Aug/2025:13:27:49] ENGINE Bus STOPPED
+2025-08-18 13:27:49,338::INFO::[_cplogging:213] [18/Aug/2025:13:27:49] ENGINE Bus EXITING
+2025-08-18 13:27:49,338::INFO::[_cplogging:213] [18/Aug/2025:13:27:49] ENGINE Bus EXITED
+2025-08-18 13:27:49,338::INFO::[notifier:163] Sending notification: SABnzbd - SABnzbd shutdown finished (type=startup, job_cat=None)
+2025-08-18 13:27:49,338::INFO::[SABnzbd:1487] Leaving SABnzbd

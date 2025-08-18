@@ -1,0 +1,32 @@
+(N) 2025-08-18T19:10:18 - qBittorrent v5.1.2 started. Process ID: 2
+(N) 2025-08-18T19:10:18 - Using config directory: /config/qBittorrent/config
+(N) 2025-08-18T19:10:18 - Trying to listen on the following list of IP addresses: "0.0.0.0:6881,[::]:6881"
+(I) 2025-08-18T19:10:18 - Peer ID: "-qB5120-"
+(I) 2025-08-18T19:10:18 - HTTP User-Agent: "qBittorrent/5.1.2"
+(I) 2025-08-18T19:10:18 - Distributed Hash Table (DHT) support: ON
+(I) 2025-08-18T19:10:18 - Local Peer Discovery support: ON
+(I) 2025-08-18T19:10:18 - Peer Exchange (PeX) support: ON
+(I) 2025-08-18T19:10:18 - Anonymous mode: OFF
+(I) 2025-08-18T19:10:18 - Encryption support: ON
+(I) 2025-08-18T19:10:18 - Successfully listening on IP. IP: "127.0.0.1". Port: "TCP/6881"
+(I) 2025-08-18T19:10:18 - Successfully listening on IP. IP: "127.0.0.1". Port: "UDP/6881"
+(I) 2025-08-18T19:10:18 - Successfully listening on IP. IP: "172.20.0.16". Port: "TCP/6881"
+(I) 2025-08-18T19:10:18 - Successfully listening on IP. IP: "172.20.0.16". Port: "UDP/6881"
+(I) 2025-08-18T19:10:18 - Successfully listening on IP. IP: "::1". Port: "TCP/6881"
+(I) 2025-08-18T19:10:18 - Successfully listening on IP. IP: "::1". Port: "UDP/6881"
+(I) 2025-08-18T19:10:18 - UPnP/NAT-PMP support: ON
+(W) 2025-08-18T19:10:18 - Couldn't load IP geolocation database. Reason: No such file or directory
+(N) 2025-08-18T19:10:18 - Using built-in WebUI.
+(W) 2025-08-18T19:10:18 - Couldn't load WebUI translation for selected locale (C).
+(N) 2025-08-18T19:10:18 - WebUI: Now listening on IP: *, port: 8080
+(I) 2025-08-18T19:10:19 - Detected external IP. IP: "76.155.208.88"
+(I) 2025-08-18T19:10:20 - IP geolocation database loaded. Type: DBIP-Country-Lite. Build time: Fri Aug 1 01:25:11 2025.
+(I) 2025-08-18T19:10:20 - Successfully updated IP geolocation database.
+(I) 2025-08-18T19:10:20 - Successfully listening on IP. IP: "fe80::c86f:e6ff:fe9e:8f7b%eth0". Port: "TCP/6881"
+(I) 2025-08-18T19:10:20 - Successfully listening on IP. IP: "fe80::c86f:e6ff:fe9e:8f7b%eth0". Port: "UDP/6881"
+(W) 2025-08-18T19:12:54 - UPnP/NAT-PMP port mapping failed. Message: "could not map port using UPnP: no router found"
+(W) 2025-08-18T19:12:54 - UPnP/NAT-PMP port mapping failed. Message: "could not map port using UPnP: no router found"
+(N) 2025-08-18T19:27:45 - qBittorrent termination initiated
+(N) 2025-08-18T19:27:45 - Saving resume data completed.
+(N) 2025-08-18T19:27:45 - BitTorrent session successfully finished.
+(N) 2025-08-18T19:27:45 - qBittorrent is now ready to exit
