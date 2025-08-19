@@ -14,6 +14,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -34,6 +35,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -53,6 +55,7 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -72,6 +75,7 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -92,6 +96,7 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -108,6 +113,7 @@ services:
   lazylibrarian:
     image: lscr.io/linuxserver/lazylibrarian:latest
     container_name: lazylibrarian
+    userns_mode: keep-id
     environment:
       - PUID=1001
       - PGID=1001
@@ -129,6 +135,7 @@ services:
   qbittorrent:
     image: docker.io/qbittorrentofficial/qbittorrent-nox:latest
     container_name: qbittorrent
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -150,6 +157,7 @@ services:
   sabnzbd:
     image: ghcr.io/hotio/sabnzbd
     container_name: sabnzbd
+    userns_mode: keep-id
     environment:
       WEBUI_PORTS: 8082
       PUID: 1001
@@ -169,6 +177,7 @@ services:
   slskd:
     image: docker.io/slskd/slskd
     container_name: slskd
+    userns_mode: keep-id
     environment:
       - PUID=1001
       - PGID=1001
@@ -193,6 +202,7 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
+    userns_mode: keep-id
     volumes:
       - /srv/apps/jellyfin/config:/config
       - /srv/apps/jellyfin/cache:/cache
@@ -216,6 +226,7 @@ services:
   jellyseerr:
     image: ghcr.io/hotio/jellyseerr
     container_name: jellyseerr
+    userns_mode: keep-id
     ports:
       - "5055:5055"
     environment:
@@ -234,6 +245,7 @@ services:
   tdarr:
     image: ghcr.io/haveagitgat/tdarr:latest
     container_name: tdarr
+    userns_mode: keep-id
     ports:
       - "8265:8265" # Web UI
       - "8266:8266" # Node API
@@ -262,6 +274,7 @@ services:
   unpackerr:
     image: ghcr.io/hotio/unpackerr
     container_name: unpackerr
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
@@ -280,6 +293,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: beets
+    userns_mode: keep-id
     environment:
       - PUID=1001
       - PGID=1001
@@ -298,6 +312,7 @@ services:
   qbitmanage:
     image: ghcr.io/hotio/qbitmanage
     container_name: qbitmanage
+    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
