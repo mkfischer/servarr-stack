@@ -57,7 +57,6 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    userns_mode: keep-id
     environment:
       PUID: 1001
       PGID: 1001
