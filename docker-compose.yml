@@ -1,13 +1,15 @@
-# Servarr Stack - Optimized for Private Network Only
-# Using podman-compose with NFS mounts from 192.168.50.186
-# Last updated: 2025
+# Servarr Stack - Private Network Configuration
+# Platform: Ubuntu with Podman (developed on macOS)
+# NFS Mount: 192.168.50.186:/mnt/array1/yoho → /mnt/media
+# 
+# Active Services:
+#   - Media Management: Sonarr, Radarr, Bazarr, Prowlarr
+#   - Download Client: qBittorrent
+#   - Support: Unpackerr, qBitManage
+#   - Dashboard: Homepage
 #
-# Prerequisites for Ubuntu:
-# 1. Mount NFS share: sudo mount -t nfs 192.168.50.186:/mnt/array1/yoho /mnt/media
-# 2. Create config directories: sudo mkdir -p /srv/apps/{sonarr,radarr,bazarr,prowlarr,lazylibrarian,qbittorrent,qbitmanage,sabnzbd,slskd,jellyfin/{config,cache},jellyseerr,tdarr/{server,configs},unpackerr,beets}
-# 3. Set permissions: sudo chown -R 1000:1000 /srv/apps
-#
-# Volume paths use /srv/apps for local config and /mnt/media for shared media storage
+# Setup: Run ./manage.sh setup for initial configuration
+# Management: Use ./manage.sh for all container operations
 
 services:
   # Dashboard
@@ -110,27 +112,6 @@ services:
         ipv4_address: 172.20.0.14
     restart: unless-stopped
 
-  lazylibrarian:
-    image: lscr.io/linuxserver/lazylibrarian:latest
-    container_name: lazylibrarian
-    userns_mode: keep-id
-    environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=America/Denver
-      # - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg  # May not work with Podman
-    volumes:
-      - /srv/apps/lazylibrarian:/config
-      - /mnt/media/downloads/:/downloads
-      - /mnt/media/library/books:/books
-      - /mnt/media/library/books/:/audiobooks
-    ports:
-      - "5299:5299"
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.15
-    restart: unless-stopped
-
   # Download Clients
   qbittorrent:
     image: docker.io/qbittorrentofficial/qbittorrent-nox:latest
@@ -154,123 +135,7 @@ services:
         ipv4_address: 172.20.0.16
     restart: unless-stopped
 
-  sabnzbd:
-    image: ghcr.io/hotio/sabnzbd
-    container_name: sabnzbd
-    userns_mode: keep-id
-    environment:
-      WEBUI_PORTS: 8082
-      PUID: 1001
-      PGID: 1001
-      UMASK: 002
-      TZ: America/Denver
-    volumes:
-      - /srv/apps/sabnzbd:/config
-      - /mnt/media/downloads:/data
-    ports:
-      - "8082:8082"
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.17
-    restart: unless-stopped
-
-  slskd:
-    image: docker.io/slskd/slskd
-    container_name: slskd
-    userns_mode: keep-id
-    environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=America/Denver
-      - SLSKD_REMOTE_CONFIGURATION=true
-    volumes:
-      - /srv/apps/slskd:/app
-      - /mnt/media/downloads/complete/music:/data/downloads
-      - /mnt/media/downloads/incomplete:/data/incomplete_downloads
-      - /mnt/media/library/music:/data/music
-    ports:
-      - "5030:5030" # HTTP port
-      - "5031:5031" # HTTPS port
-      - "2234:2234" # Soulseek port
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.18
-    restart: unless-stopped
-
-  # Media Servers
-  # Note: FlareSolverr removed - only needed for public trackers with CloudFlare protection
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
-    userns_mode: keep-id
-    volumes:
-      - /srv/apps/jellyfin/config:/config
-      - /srv/apps/jellyfin/cache:/cache
-      - /mnt/media/library/movies:/media/movies:ro
-      - /mnt/media/library/tv:/media/tv:ro
-      - /mnt/media/library/anime-series:/anime-series:ro
-      - /mnt/media/library/anime-movies:/anime-movies:ro
-      - /mnt/media/fonts:/usr/local/share/fonts/custom:ro
-    ports:
-      - "8096:8096" # Web UI
-      - "8920:8920" # HTTPS Web UI
-      - "7359:7359/udp" # Client discovery
-      # - "1900:1900/udp"       # DLNA - commented out for private network (uncomment if needed)
-    environment:
-      TZ: America/Denver
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.8
-    restart: unless-stopped
-
-  jellyseerr:
-    image: ghcr.io/hotio/jellyseerr
-    container_name: jellyseerr
-    userns_mode: keep-id
-    ports:
-      - "5055:5055"
-    environment:
-      PUID: 1001
-      PGID: 1001
-      UMASK: 002
-      TZ: America/Denver
-    volumes:
-      - /srv/apps/jellyseerr:/config
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.6
-    restart: unless-stopped
-
   # Support Services
-  tdarr:
-    image: ghcr.io/haveagitgat/tdarr:latest
-    container_name: tdarr
-    userns_mode: keep-id
-    ports:
-      - "8265:8265" # Web UI
-      - "8266:8266" # Node API
-    environment:
-      TZ: America/Denver
-      PUID: 1001
-      PGID: 1001
-      UMASK_SET: 002
-      serverIP: 0.0.0.0
-      serverPort: 8266
-      webUIPort: 8265
-      internalNode: "false"
-      auth: "true"
-      authSecretKey:
-    volumes:
-      - /srv/apps/tdarr/server:/app/server
-      - /srv/apps/tdarr/configs:/app/configs
-      - /srv/apps/tdarr:/config
-      - /mnt/media/apps/tdarr/temp:/temp
-      - /mnt/media/library:/media
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.3
-    restart: unless-stopped
-
   unpackerr:
     image: ghcr.io/hotio/unpackerr
     container_name: unpackerr
@@ -286,27 +151,6 @@ services:
     networks:
       media_net:
         ipv4_address: 172.20.0.4
-    restart: unless-stopped
-
-  beets:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: beets
-    userns_mode: keep-id
-    environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=America/Denver
-    volumes:
-      - /srv/apps/beets:/config
-      - /mnt/media/library/music:/music
-      - /mnt/media/downloads/complete/music:/downloads
-    ports:
-      - "8337:8337"
-    networks:
-      media_net:
-        ipv4_address: 172.20.0.5
     restart: unless-stopped
 
   qbitmanage:
@@ -328,8 +172,9 @@ services:
     depends_on:
       - qbittorrent
 
-  # Note: Watchtower removed - manual container updates preferred for private network
-  # To update containers manually, use: podman pull <image> && podman-compose up -d <service>
+  # Container Management:
+  # Use ./manage.sh update to update containers
+  # Or manually: podman pull <image> && podman-compose up -d <service>
 
 networks:
   media_net:

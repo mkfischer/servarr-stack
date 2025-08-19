@@ -38,11 +38,6 @@
           url: http://192.168.50.59:9696
           key: 35ccdc07d49347188b462d2af114cc5e
 
-    - LazyLibrarian:
-        icon: lazylibrarian.png
-        href: http://192.169.50.59:5299
-        description: Book & Audiobook Management
-
 - Download Clients:
     - qBittorrent:
         icon: qbittorrent.png
@@ -54,55 +49,7 @@
           username: admin
           password: dose.caution.Blow.2 # Change this!
 
-    - SABnzbd:
-        icon: sabnzbd.png
-        href: http://192.169.50.59:8082
-        description: Usenet Client
-        widget:
-          type: sabnzbd
-          url: http://192.168.50.59:8082
-          key: # Add your API key here
-
-    - slskd:
-        icon: slskd.png
-        href: http://192.169.50.59:5030
-        description: Soulseek Client
-
-- Media Servers:
-    - Jellyfin:
-        icon: jellyfin.png
-        href: http://192.169.50.59:8096
-        description: Media Server
-        widget:
-          type: jellyfin
-          url: http://192.168.50.59:8096
-          key: # Add your API key here
-          enableBlocks: true
-          enableNowPlaying: true
-
-    - Jellyseerr:
-        icon: jellyseerr.png
-        href: http://192.169.50.59:5055
-        description: Media Request Management
-        widget:
-          type: jellyseerr
-          url: http://192.168.50.59:5055
-          key: # Add your API key here
-
 - Media Processing:
-    - Tdarr:
-        icon: tdarr.png
-        href: http://192.169.50.59:8265
-        description: Media Transcoding
-        widget:
-          type: tdarr
-          url: http://192.168.50.59:8265
-
-    - Beets:
-        icon: https://raw.githubusercontent.com/beetbox/beets/master/docs/_static/beets_logo_128.png
-        href: http://192.169.50.59:8337
-        description: Music Organization
-
     - Unpackerr:
         icon: https://raw.githubusercontent.com/Unpackerr/unpackerr/main/init/windows/Unpackerr.png
         href: #

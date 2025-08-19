@@ -1,89 +1,45 @@
-# Arr Stack Installation Guide
+# Servarr Stack
 
-This guide covers setting up an Arr stack (Sonarr, Radarr, etc.) using Docker Compose. The installation is compatible with most Linux systems, with an optional script for Proxmox users running unprivileged LXC containers.
+Private network media automation stack using Podman on Ubuntu.
 
----
+## Active Services
 
-## Prerequisites
+- **Media Management**: Sonarr, Radarr, Bazarr, Prowlarr
+- **Download Client**: qBittorrent
+- **Support**: Unpackerr, qBitManage
+- **Dashboard**: Homepage
 
-- A Linux server (bare metal, VM, or container) with Docker and Docker Compose installed
-- Basic knowledge of the Linux command line
-- Appropriate storage configured for media and application data
+## Setup
 
----
+```bash
+# Initial setup (creates directories, mounts NFS, configures services)
+./manage.sh setup
 
-## Step 1: Clone the Repository
+# Start all services
+./manage.sh start
+```
 
-1. **Access your server** via SSH or terminal.
-2. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+## Management
 
----
+```bash
+# Interactive menu
+./manage.sh
 
-## Step 2: Configure Installation
+# Direct commands
+./manage.sh start|stop|restart|status|logs|update|homepage
+```
 
-### For Standard Linux Installations
+## Access Points
 
-1. **Edit the `install.sh` script**
-   - Open the script and set the variables according to your environment (paths, user, permissions, etc.).
-   - Save your changes.
+- Homepage: http://localhost:3000
+- Sonarr: http://localhost:8989
+- Radarr: http://localhost:7878
+- Bazarr: http://localhost:6767
+- Prowlarr: http://localhost:9696
+- qBittorrent: http://localhost:8080
 
-2. **Run the installation script**
-   ```bash
-   ./install.sh
+## Configuration
 
----
-
-## For Proxmox Unprivileged LXC Containers
-
-If you are using Proxmox with an unprivileged LXC container and a Proxmox-mounted media directory, follow these steps:
-
-1. **On the Proxmox Host:**
-   - Run the Proxmox-specific installation script:
-     ```bash
-     ./install-pve.sh
-     ```
-   - Edit the script to configure paths, permissions, and other variables according to your Proxmox setup.
-
-2. **Inside the LXC Container:**
-   - Run the main installation script:
-     ```bash
-     ./install.sh
-     ```
-
----
-
-## Step 3: Deploy the Arr Stack
-
-1. **Start the stack**:
-   ```bash
-   docker compose up -d
-
-2. **Verify the deployment**:
-   - Check that all containers are running:
-     ```bash
-     docker ps
-     ```
-   - Access the web interfaces for each service using the appropriate URLs (e.g., `http://<your-server-ip>:<service-port>`).
-   - Complete the initial setup for each application as needed.
-   - Ensure storage permissions and firewall rules are properly configured.
-
----
-
-## Troubleshooting
-   **Issue**            | **Solution**                                      |
- |----------------------|---------------------------------------------------|
- | Storage issues       | Verify mounts and permissions.                    |
- | Docker issues        | Confirm Docker and Docker Compose are installed.  |
- | Network issues       | Check firewall rules and port accessibility.      |
- | Performance issues   | Review resource allocation and system logs.       |
-
----
-
-## Notes
-
-- Use `install.sh` for standard Linux installations.
-- Use `install-pve.sh` **only** for Proxmox unprivileged LXC environments with Proxmox-mounted media directories.
-- Regularly back up your configurations and data.
+- **NFS Mount**: `192.168.50.186:/mnt/array1/yoho` → `/mnt/media`
+- **Config Directory**: `/srv/apps/`
+- **Platform**: Ubuntu with Podman (developed on macOS)
